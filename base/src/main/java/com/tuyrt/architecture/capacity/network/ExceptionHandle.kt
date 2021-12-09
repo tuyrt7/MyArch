@@ -1,5 +1,6 @@
 package com.tuyrt.architecture.capacity.network
 
+import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import retrofit2.HttpException
 import java.net.UnknownHostException
@@ -10,7 +11,13 @@ import java.net.UnknownHostException
  */
 fun handleException(throwable: Throwable) = when (throwable) {
     is UnknownHostException -> RequestException(HttpError.NETWORK_ERROR, throwable.message)
-    is HttpException -> RequestException(throwable.code(), throwable.message, throwable.message)
+    is HttpException -> {
+        // RequestException(throwable.code(), throwable.message, throwable.message)
+        val errorModel = throwable.response()?.errorBody()?.string()?.run {
+            Gson().fromJson(this, ErrorBodyModel::class.java)
+        } ?: ErrorBodyModel()
+        RequestException(errorMsg = errorModel.message, error = errorModel.error)
+    }
     is JsonParseException -> RequestException(HttpError.JSON_PARSE_ERROR, throwable.message)
     is RequestException -> throwable
     else -> RequestException(HttpError.UNKNOWN, throwable.message)
