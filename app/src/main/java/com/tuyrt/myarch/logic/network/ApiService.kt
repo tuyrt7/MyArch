@@ -20,6 +20,4 @@ interface ApiService {
         @Query("username") userName: String = "requestpractice",
         @Query("password") password: String
     ): ApiResponse<LoginModel>
-
-
 }

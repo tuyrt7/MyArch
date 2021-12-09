@@ -71,7 +71,6 @@ class LoadingDialog : BaseDialogFragment() {
             LoadingDialog().apply {
                 tips?.let { setLoadingText(it) }
                 showNow(fm, TAG)
-                Log.d("aaaa","先设置文本再 show")
             }
         }
 

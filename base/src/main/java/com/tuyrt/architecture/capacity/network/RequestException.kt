@@ -13,9 +13,9 @@ data class RequestException(
 ) : Exception() {
 
     constructor(response: BaseResponse<*>) : this(
-        response.errorCode,
-        response.errorMsg,
-        response.errorMsg
+        response.getResCode(),
+        response.getResMsg(),
+        response.getResMsg()
     )
 
     constructor(httpError: HttpError, error: String?) : this(

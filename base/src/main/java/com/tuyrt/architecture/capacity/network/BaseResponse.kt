@@ -2,17 +2,16 @@ package com.tuyrt.architecture.capacity.network
 
 /**
  * Created by tuyrt7 on 2021/12/3.
- * 说明：
+ * 说明：响应数据结构
  */
-abstract class BaseResponse<T> {
+interface BaseResponse<T> {
 
-    abstract val success:Boolean
+    fun isSuccess(): Boolean
 
-    abstract val data: T?
+    fun getResData(): T?
 
-    abstract val errorCode: Int?
+    fun getResCode(): Int?
 
-    abstract val errorMsg:String?
-
+    fun getResMsg(): String?
 }
 

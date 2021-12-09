@@ -5,14 +5,19 @@ package com.tuyrt.architecture.capacity.network
  * 说明：接口数据结构
  */
 open class ApiResponse<T>(
-    override val data: T? = null,
-    override val errorCode: Int? = null,
-    override val errorMsg: String? = null,
+    open val data: T? = null,
+    val errorCode: Int? = null,
+    val errorMsg: String? = null,
     open val exception: RequestException? = null,
-) : BaseResponse<T>() {
+) : BaseResponse<T> {
 
-    override val success: Boolean
-        get() = errorCode == 0
+    override fun isSuccess() = errorCode == 0
+
+    override fun getResData(): T? = data
+
+    override fun getResCode(): Int? = errorCode
+
+    override fun getResMsg(): String? = errorMsg
 }
 
 class StartResponse<T> : ApiResponse<T>()
@@ -23,5 +28,4 @@ data class SuccessResponse<T>(override val data: T) : ApiResponse<T>(data)
 
 class EmptyResponse<T> : ApiResponse<T>()
 
-data class FailureResponse<T>(override val exception: RequestException) :
-    ApiResponse<T>(exception = exception)
+data class FailureResponse<T>(override val exception: RequestException) : ApiResponse<T>(exception = exception)

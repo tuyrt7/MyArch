@@ -16,6 +16,7 @@ object RetrofitClient : BaseRetrofitClient() {
     private const val LOG_TAG_HTTP_RESULT = "okhttp_result"
 
     val service by lazy { getService(ApiService::class.java, ApiService.BASE_URL) }
+    val xkService by lazy { getService(XkApi::class.java, XkApi.BASE_URL) }
 
     override fun handleBuilder(builder: OkHttpClient.Builder) = Unit
 

@@ -15,10 +15,10 @@ abstract class BaseRepository {
     ): Flow<BaseResponse<T>> = flow {
         val result = block.invoke()
         emit(
-            if (result.success) {
-                checkEmptyResponse(result.data)
+            if (result.isSuccess()) {
+                checkEmptyResponse(result.getResData())
             } else {
-                handleServerExceptions(result.errorCode ?: -1, result.errorMsg ?: "服务器出现了错误")
+                handleServerExceptions(result.getResCode() ?: -1, result.getResMsg() ?: "服务器出现了错误")
                 FailureResponse(handleException(RequestException(result)))
             }
         )
@@ -30,7 +30,6 @@ abstract class BaseRepository {
         emit(FailureResponse(handleException(throwable)))
     }.flowOn(Dispatchers.IO)
 
-
     protected suspend fun <T> fire(
         block: suspend () -> BaseResponse<T>
     ): BaseResponse<T> = withContext(Dispatchers.IO) {
@@ -38,10 +37,10 @@ abstract class BaseRepository {
         kotlin.runCatching {
             block.invoke()
         }.onSuccess {
-            response = if (it.success) {
-                checkEmptyResponse(it.data)
+            response = if (it.isSuccess()) {
+                checkEmptyResponse(it.getResData())
             } else {
-                handleServerExceptions(it.errorCode ?: -1, it.errorMsg ?: "服务器出现了错误")
+                handleServerExceptions(it.getResCode() ?: -1, it.getResMsg() ?: "服务器出现了错误")
                 FailureResponse(handleException(RequestException(it)))
             }
         }.onFailure { throwable ->

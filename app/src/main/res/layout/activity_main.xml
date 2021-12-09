@@ -21,6 +21,13 @@
         android:text="错误密码登录"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btnTestXk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="小科测试连接"
+        android:textAllCaps="false" />
+
     <androidx.core.widget.NestedScrollView
         android:fillViewport="true"
         android:layout_width="match_parent"

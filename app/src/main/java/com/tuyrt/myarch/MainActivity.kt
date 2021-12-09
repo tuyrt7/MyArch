@@ -1,17 +1,17 @@
 package com.tuyrt.myarch
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.hi.dhl.binding.viewbind
 import com.tuyrt.architecture.base.arch.BaseActivity
 import com.tuyrt.architecture.capacity.log.KLog
 import com.tuyrt.architecture.capacity.network.observeResponse
 import com.tuyrt.architecture.capacity.network.observeState
 import com.tuyrt.architecture.ext.toast
-import com.tuyrt.architecture.ui.dialog.LoadingDialog
 import com.tuyrt.myarch.databinding.ActivityMainBinding
 import com.tuyrt.myarch.ext.showMessage
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
 
@@ -21,8 +21,22 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     private val viewModel by viewModels<MainViewModel>()
 
     override fun initial(savedInstanceState: Bundle?) {
-        binding.btnLogin.setOnClickListener { viewModel.login() }
-        binding.btnLoginWrong.setOnClickListener { viewModel.loginWithWrongPwd() }
+
+        binding.run {
+            btnLogin.setOnClickListener {
+                // viewModel.login()
+                viewModel.loginFlow()
+            }
+
+            btnLoginWrong.setOnClickListener {
+                //viewModel.loginWithWrongPwd()
+                viewModel.loginWithWrongPwdFlow()
+            }
+
+            btnTestXk.setOnClickListener {
+                viewModel.getKey()
+            }
+        }
     }
 
      override fun initObserver() {
@@ -48,7 +62,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
             }
 
             onFinish {
-                Log.d(TAG, "请求结束")
+                KLog.d( "请求结束")
             }
         }*/
 
@@ -62,5 +76,49 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         }) {
             binding.tvResult.text = it.toString()
         }
+
+         lifecycleScope.launch {
+             /*viewModel.loginFlow.observeState {
+                 onSuccess {
+                     binding.tvResult.text = it.toString()
+                 }
+
+                 onFailure {
+                 KLog.d("observeState发生了错误： ${it.code} == ${it.errorMsg}")
+                     binding.tvResult.text = it.toString()
+                 }
+             }*/
+
+             viewModel.loginFlow.observeResponse(onFailure = {
+                 KLog.d("observeResponse发生了错误： ${it.code} == ${it.errorMsg}")
+                 binding.tvResult.text = it.toString()
+             }) {
+                 binding.tvResult.text = it.toString()
+             }
+         }
+
+         viewModel.secretLiveData.observeState(this) {
+             onStart {
+                 KLog.d("请求开始")
+             }
+
+             onSuccess {
+                 KLog.d("请求成功")
+                 toast("登录成功")
+                 binding.tvResult.text = it.toString()
+             }
+             onEmpty {
+                 KLog.d("数据为空")
+             }
+
+             onFailure {
+                 KLog.d("请求失败")
+                 binding.tvResult.text = it.toString()
+             }
+
+             onFinish {
+                 KLog.d( "请求结束")
+             }
+         }
     }
 }
