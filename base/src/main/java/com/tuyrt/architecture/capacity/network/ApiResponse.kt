@@ -2,14 +2,15 @@ package com.tuyrt.architecture.capacity.network
 
 /**
  * Created by tuyrt7 on 2021/12/3.
- * 说明：接口数据结构
+ * 说明：临时解析接口 数据结构
  */
 open class ApiResponse<T>(
     open val data: T? = null,
-    val errorCode: Int? = null,
-    val errorMsg: String? = null,
-    open val exception: RequestException? = null,
+    private val errorCode: Int? = null,
+    private val errorMsg: String? = null
 ) : BaseResponse<T> {
+
+    constructor(exception: RequestException) : this(null, exception.code, exception.errorMsg)
 
     override fun isSuccess() = errorCode == 0
 
@@ -28,4 +29,4 @@ data class SuccessResponse<T>(override val data: T) : ApiResponse<T>(data)
 
 class EmptyResponse<T> : ApiResponse<T>()
 
-data class FailureResponse<T>(override val exception: RequestException) : ApiResponse<T>(exception = exception)
+data class FailureResponse<T>(val exception: RequestException) : ApiResponse<T>(exception = exception)
