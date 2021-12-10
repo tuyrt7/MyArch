@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.tuyrt.architecture.capacity.network.BaseResponse
 import com.tuyrt.architecture.capacity.network.request
-import com.tuyrt.architecture.ext.launchFlow
+import com.tuyrt.architecture.ext.launchUI
 import com.tuyrt.myarch.logic.model.LoginModel
 import com.tuyrt.myarch.logic.model.Secret
 import com.tuyrt.myarch.logic.network.Repository
@@ -37,7 +37,7 @@ class MainViewModel : ViewModel() {
     val loginFlow: SharedFlow<BaseResponse<LoginModel>> = _loginFlow
 
     fun loginFlow() {
-        launchFlow {
+        launchUI {
             val asLiveData = Repository.loginFlow("PuKxVxvMzBp2EJM").asLiveData(viewModelScope.coroutineContext)
             Repository.loginFlow("PuKxVxvMzBp2EJM").collect {
                 _loginFlow.tryEmit(it)
@@ -46,17 +46,18 @@ class MainViewModel : ViewModel() {
     }
 
     fun loginWithWrongPwdFlow() {
-        launchFlow {
+        launchUI {
             Repository.loginFlow("123456").collect {
                 _loginFlow.tryEmit(it)
             }
         }
     }
 
+    //  Flow + LiveData
     val secretLiveData = MutableLiveData<BaseResponse<Secret>>()
 
     fun getKey() {
-        launchFlow {
+        launchUI {
             Repository.getKey("123456").collect {
                 secretLiveData.value = it
             }

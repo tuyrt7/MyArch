@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
  * 说明：
  */
 
-fun ViewModel.launchFlow(block: suspend CoroutineScope.() -> Unit) {
+fun ViewModel.launchUI(block: suspend CoroutineScope.() -> Unit) {
     viewModelScope.launch { block() }
 }
 

@@ -1,12 +1,10 @@
 package com.tuyrt.architecture.base.arch
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.tuyrt.architecture.ext.SingleLiveEvent
-import com.tuyrt.architecture.ext.launchFlow
+import com.tuyrt.architecture.ext.launchUI
 import com.tuyrt.architecture.ext.postEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
 
 /**
  * Created by tuyrt7 on 2021/12/3.
@@ -36,19 +34,19 @@ class EventViewModel : ViewModel() {
     val toastFlow = MutableSharedFlow<String?>()
 
     fun showLoadingFlow(msg: String?) {
-        launchFlow {
+        launchUI {
             showDialogFlow.emit(msg)
         }
     }
 
     fun dismissLoadingFlow() {
-        launchFlow {
+        launchUI {
             dismissDialogFlow.emit(null)
         }
     }
 
     fun toastFlow(msg: String?) {
-        launchFlow {
+        launchUI {
             toastFlow.emit(msg)
         }
     }
