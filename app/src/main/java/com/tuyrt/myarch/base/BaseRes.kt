@@ -8,7 +8,7 @@ import com.tuyrt.architecture.capacity.network.BaseResponse
  */
 data class BaseRes<T>(
     val data: T?,
-    val code: Int,
+    val code: Int?,
     val msg: String?
 ) : BaseResponse<T> {
 

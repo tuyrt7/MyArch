@@ -1,4 +1,4 @@
-package com.tuyrt.myarch
+package com.tuyrt.myarch.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -9,11 +9,12 @@ import com.tuyrt.architecture.capacity.log.KLog
 import com.tuyrt.architecture.capacity.network.observeResponse
 import com.tuyrt.architecture.capacity.network.observeState
 import com.tuyrt.architecture.ext.toast
+import com.tuyrt.myarch.R.layout
 import com.tuyrt.myarch.databinding.ActivityMainBinding
 import com.tuyrt.myarch.ext.showMessage
 import kotlinx.coroutines.launch
 
-class MainActivity : BaseActivity(R.layout.activity_main) {
+class MainActivity : BaseActivity(layout.activity_main) {
 
     private val TAG = "aaaa"
 

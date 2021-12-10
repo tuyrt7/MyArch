@@ -9,7 +9,7 @@ import com.tuyrt.myarch.logic.network.RetrofitClient
  */
 object MyNetwork {
 
-    private val apiService = RetrofitClient.service
+    private val apiService = RetrofitClient.getService(ApiService::class.java, ApiService.BASE_URL)
 
-    suspend fun login(pwd:String) = apiService.login(password = pwd)
+    suspend fun login(pwd: String) = apiService.login(password = pwd)
 }

@@ -1,4 +1,4 @@
-package com.tuyrt.myarch
+package com.tuyrt.myarch.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

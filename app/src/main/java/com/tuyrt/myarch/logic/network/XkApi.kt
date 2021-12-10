@@ -1,6 +1,5 @@
 package com.tuyrt.myarch.logic.network
 
-import com.tuyrt.architecture.capacity.network.ApiResponse
 import com.tuyrt.myarch.base.BaseRes
 import com.tuyrt.myarch.logic.model.Secret
 import retrofit2.http.Field
