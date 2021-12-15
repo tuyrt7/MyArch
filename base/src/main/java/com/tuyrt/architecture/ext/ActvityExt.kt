@@ -1,11 +1,17 @@
 package com.tuyrt.architecture.ext
 
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * Created by tuyrt7 on 2021/12/7.
@@ -40,3 +46,20 @@ fun Activity.hideSoftKeyboard() {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 }
+
+fun Context?.isActivityDestroy(): Boolean {
+    val activity = this?.let { findActivity(it) }
+    if (activity != null) {
+        return activity.isDestroyed || activity.isFinishing
+    }
+    return true
+}
+
+private fun findActivity(context: Context): Activity? {
+    return when (context) {
+        is Activity -> context
+        is ContextWrapper -> findActivity(context.baseContext)
+        else -> null
+    }
+}
+

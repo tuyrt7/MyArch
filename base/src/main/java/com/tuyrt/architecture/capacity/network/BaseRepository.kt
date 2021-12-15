@@ -1,5 +1,9 @@
 package com.tuyrt.architecture.capacity.network
 
+import com.tuyrt.architecture.capacity.log.KLog
+import com.tuyrt.architecture.capacity.network.data.*
+import com.tuyrt.architecture.capacity.network.error.RequestException
+import com.tuyrt.architecture.capacity.network.error.handleException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -10,17 +14,31 @@ import kotlinx.coroutines.withContext
  */
 abstract class BaseRepository {
 
+    /**
+     *  普通协程请求
+     */
+    protected suspend fun <T> fire(
+        block: suspend () -> BaseResponse<T>
+    ): BaseResponse<T> = withContext(Dispatchers.IO) {
+        var response: BaseResponse<T> = EmptyResponse()
+        kotlin.runCatching {
+            block.invoke()
+        }.onSuccess { data: BaseResponse<T> ->
+            response = handleHttpOk(data)
+        }.onFailure { throwable ->
+            response = handleHttpError(throwable)
+        }
+        response
+    }
+
+    /**
+     *  Flow 请求
+     */
     protected suspend fun <T> water(
         block: suspend () -> BaseResponse<T>
     ): Flow<BaseResponse<T>> = flow {
-        val result = block.invoke()
         emit(
-            if (result.isSuccess()) {
-                checkEmptyResponse(result.getResData())
-            } else {
-                handleServerExceptions(result.getResCode() ?: -1, result.getResMsg() ?: "服务器出现了错误")
-                FailureResponse(handleException(RequestException(result)))
-            }
+            handleHttpOk(block.invoke())
         )
     }.onStart {
         emit(StartResponse())
@@ -30,36 +48,38 @@ abstract class BaseRepository {
         emit(FailureResponse(handleException(throwable)))
     }.flowOn(Dispatchers.IO)
 
-    protected suspend fun <T> fire(
-        block: suspend () -> BaseResponse<T>
-    ): BaseResponse<T> = withContext(Dispatchers.IO) {
-        var response: BaseResponse<T> = EmptyResponse()
-        kotlin.runCatching {
-            block.invoke()
-        }.onSuccess {
-            response = if (it.isSuccess()) {
-                checkEmptyResponse(it.getResData())
-            } else {
-                handleServerExceptions(it.getResCode() ?: -1, it.getResMsg() ?: "服务器出现了错误")
-                FailureResponse(handleException(RequestException(it)))
-            }
-        }.onFailure { throwable ->
-            response = FailureResponse(handleException(throwable))
-        }
-        response
-    }
-
-    open fun handleServerExceptions(errorCode: Int, errorMsg: String) {
-        // 处理后台返回特殊错误码，比如token过期...
+    private fun <T> handleHttpError(throwable: Throwable): BaseResponse<T> {
+        return FailureResponse(handleException(throwable))
     }
 
     /**
-     * data 为 null，或者 data 是集合类型，但是集合为空都会进入 onEmpty 回调
+     * 返回200，但是还要判断isSuccess
      */
-    private fun <T> checkEmptyResponse(data: T?): ApiResponse<T> =
-        if (data == null || (data is List<*> && (data as List<*>).isEmpty())) {
+    private fun <T> handleHttpOk(data: BaseResponse<T>): BaseResponse<T> {
+        return if (data.isSuccess()) {
+            getHttpSuccessResponse(data.getResData())
+        } else {
+            handleServerExceptions(data.getResCode() ?: -1, data.getResMsg() ?: "服务器出现了错误")
+            FailureResponse(handleException(RequestException(data)))
+        }
+    }
+
+    /**
+     * 成功和数据为空的处理
+     */
+    private fun <T> getHttpSuccessResponse(data: T?): ApiResponse<T> {
+        return if (data == null || (data is List<*> && (data as List<*>).isEmpty())) {
             EmptyResponse()
         } else {
             SuccessResponse(data)
         }
+    }
+
+    /**
+     *  处理服务器 API Error
+     */
+    open fun handleServerExceptions(errorCode: Int, errorMsg: String) {
+        // 处理后台返回特殊错误码，比如token过期...
+    }
+
 }

@@ -1,18 +1,3 @@
-/*
- *  Copyright 2017 Google Inc.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package com.tuyrt.architecture.ext
 
 import android.os.Looper
@@ -26,18 +11,22 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * A lifecycle-aware observable that sends only new updates after subscription, used for events like
- * navigation and Snackbar messages.
+ * 利用SingleLiveEvent 使 observe#LiveData时只相应一次onChanged操作
  *
+ * 1 SingleLiveEvent 利用 AtomicBoolean （默认为false）进行赋值，当LiveData 进行 setValue时
+ * 改变 AtomicBoolean的值（set(true)）
  *
- * This avoids a common problem with events: on configuration change (like rotation) an update
- * can be emitted if the observer is active. This LiveData only calls the observable if there's an
- * explicit call to setValue() or call().
+ * 2 使用 AtomicBoolean.compareAndSet(true,false)方法,先进行判断（此时的AtomicBoolean的值为true）
+ * 与 compareAndSet设置的except值（第一个参数）比较，因为相等所以将第二个参数设置为AtomicBoolean值设为false
+ * 函数并返回 true ，）
  *
+ * 3 当再次进入该页面虽然 LiveData值并没有改变，仍然触发了 observer方法，由于 AtomicBoolean已经为 false ，但是 except值为 true ，
+ * 与if 进行判断所以 并不会继续触发 onChanged（T）方法
  *
- * Note that only one observer is going to be notified of changes.
+ * 即只有在 setValue时相应一次onChanged(T)方法。
+ *
+ * Fix： LiveData 扩展 解决数据倒灌
  */
-// LiveData 扩展 解决数据倒灌
 fun <T> SingleLiveEvent<T>.postEvent(t: T?) {
     if (Looper.myLooper() == Looper.getMainLooper())
         value = t
@@ -54,10 +43,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
 
         if (hasActiveObservers()) {
-            Log.w(
-                "SingleLiveEvent",
-                "Multiple observers registered but only one will be notified of changes."
-            )
+            Log.w("SingleLiveEvent", "Multiple observers registered but only one will be notified of changes.")
         }
 
         // Observe the internal MutableLiveData

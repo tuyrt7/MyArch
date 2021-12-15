@@ -1,33 +1,37 @@
 package com.tuyrt.architecture.base.arch
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.tuyrt.architecture.capacity.log.KLog
 import com.tuyrt.architecture.ext.launchLifecycleScope
 import com.tuyrt.architecture.ext.toast
 import com.tuyrt.architecture.ui.dialog.LoadingDialog
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+
 /**
  * Created by tuyrt7 on 2021/12/1.
  * 说明：
  */
-abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId), ILoadingView {
+abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) : AppCompatActivity(contentLayoutId), ILoadingView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initial(savedInstanceState)
         initEventObserver()
-        initObserver()
+        createObserver()
     }
 
     abstract fun initial(savedInstanceState: Bundle?)
 
-    abstract fun initObserver()
+    abstract fun createObserver()
 
     open fun initEventObserver() {
         BaseApp.eventViewModel.showDialog.observe(this) {
+            KLog.d("${this.javaClass.simpleName} eventViewModel showDialog ")
             showLoading(it)
         }
 
@@ -40,8 +44,6 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
         }
 
         // Flow
-
-
         launchLifecycleScope {
             BaseApp.eventViewModel.showDialogFlow.collect {
                 showLoading(it)
@@ -55,7 +57,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
         }
 
         launchLifecycleScope {
-            BaseApp.eventViewModel.toastFlow.collectLatest { msg->
+            BaseApp.eventViewModel.toastFlow.collectLatest { msg ->
                 toast(msg)
             }
         }

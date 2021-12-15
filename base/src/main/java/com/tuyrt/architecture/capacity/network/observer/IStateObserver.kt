@@ -1,20 +1,22 @@
-package com.tuyrt.architecture.capacity.network
+package com.tuyrt.architecture.capacity.network.observer
 
 import androidx.lifecycle.Observer
+import com.tuyrt.architecture.capacity.network.error.RequestException
+import com.tuyrt.architecture.capacity.network.data.*
 
 /**
  * Created by tuyrt7 on 2021/12/3.
  * 说明： 自定义 Observer，监听 LiveData 的值的变化
+ *  配合 协程请求使用
  */
 interface IStateObserver<T> : Observer<BaseResponse<T>> {
 
     override fun onChanged(response: BaseResponse<T>?) {
+        if (response is StartResponse) {
+            onStart() // 协程开始时，监听到 start事件，不能再执行onFinish()
+            return
+        }
         when (response) {
-            is StartResponse -> {
-                //onStart()回调后不能直接就调用onFinish()，必须等待请求结束
-                onStart()
-                return
-            }
             is SuccessResponse -> onSuccess(response.data)
             is EmptyResponse -> onEmpty()
             is FailureResponse -> onFailure(response.exception)

@@ -1,4 +1,4 @@
-package com.tuyrt.architecture.capacity.network
+package com.tuyrt.architecture.capacity.network.error
 
 /**
  * Created by tuyrt7 on 2021/12/9.

@@ -1,5 +1,7 @@
-package com.tuyrt.architecture.capacity.network
+package com.tuyrt.architecture.capacity.network.error
 
+import com.tuyrt.architecture.capacity.network.data.BaseResponse
+import com.tuyrt.architecture.capacity.network.error.HttpError
 import java.lang.Exception
 
 /**

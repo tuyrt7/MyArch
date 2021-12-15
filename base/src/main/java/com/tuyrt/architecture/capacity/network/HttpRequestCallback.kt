@@ -1,10 +1,11 @@
 package com.tuyrt.architecture.capacity.network
 
+import com.tuyrt.architecture.capacity.network.error.RequestException
+
 /**
  * Created by tuyrt7 on 2021/12/3.
- * 说明：网络请求回调
+ * 说明：
  */
-
 typealias OnSuccessCallback<T> = (data: T) -> Unit
 typealias OnFailureCallback = (e: RequestException) -> Unit
 typealias OnUnitCallback = () -> Unit
@@ -36,5 +37,4 @@ class HttpRequestCallback<T> {
     fun onFinish(block: OnUnitCallback) {
         finishCallback = block
     }
-
 }

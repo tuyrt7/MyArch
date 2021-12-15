@@ -43,9 +43,6 @@ dependencies {
 
     implementation project(path: ':base')
 
-    // dataBinding + viewbinding
-    implementation 'com.hi-dhl:binding:1.1.3'
-
     // material dialog
     implementation 'com.afollestad.material-dialogs:lifecycle:3.3.0'
     implementation 'com.afollestad.material-dialogs:core:3.3.0'

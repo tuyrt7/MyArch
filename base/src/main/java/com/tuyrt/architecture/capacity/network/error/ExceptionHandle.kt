@@ -1,7 +1,8 @@
-package com.tuyrt.architecture.capacity.network
+package com.tuyrt.architecture.capacity.network.error
 
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import com.tuyrt.architecture.capacity.network.error.HttpError.*
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
@@ -10,7 +11,7 @@ import java.net.UnknownHostException
  * 说明：处理返回的异常
  */
 fun handleException(throwable: Throwable) = when (throwable) {
-    is UnknownHostException -> RequestException(HttpError.NETWORK_ERROR, throwable.message)
+    is UnknownHostException -> RequestException(NETWORK_ERROR, throwable.message)
     is HttpException -> {
         // RequestException(throwable.code(), throwable.message, throwable.message)
         val errorModel = throwable.response()?.errorBody()?.string()?.run {
@@ -18,7 +19,7 @@ fun handleException(throwable: Throwable) = when (throwable) {
         } ?: ErrorBodyModel()
         RequestException(errorMsg = errorModel.message, error = errorModel.error)
     }
-    is JsonParseException -> RequestException(HttpError.JSON_PARSE_ERROR, throwable.message)
+    is JsonParseException -> RequestException(JSON_PARSE_ERROR, throwable.message)
     is RequestException -> throwable
-    else -> RequestException(HttpError.UNKNOWN, throwable.message)
+    else -> RequestException(UNKNOWN, throwable.message)
 }
