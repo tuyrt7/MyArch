@@ -1,7 +1,7 @@
 package com.tuyrt.architecture.capacity.network
 
 import com.tuyrt.architecture.capacity.log.KLog
-import com.tuyrt.architecture.capacity.network.data.*
+import com.tuyrt.architecture.capacity.network.response.*
 import com.tuyrt.architecture.capacity.network.error.RequestException
 import com.tuyrt.architecture.capacity.network.error.handleException
 import kotlinx.coroutines.Dispatchers

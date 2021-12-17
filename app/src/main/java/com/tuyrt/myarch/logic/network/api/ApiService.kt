@@ -1,6 +1,6 @@
 package com.tuyrt.myarch.logic.network.api
 
-import com.tuyrt.architecture.capacity.network.data.ApiResponse
+import com.tuyrt.architecture.capacity.network.response.ApiResponse
 import com.tuyrt.myarch.logic.data.entity.BannerBean
 import com.tuyrt.myarch.logic.data.entity.HomeListBean
 import com.tuyrt.myarch.logic.data.entity.LoginModel

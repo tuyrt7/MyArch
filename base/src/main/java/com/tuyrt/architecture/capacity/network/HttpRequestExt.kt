@@ -2,7 +2,7 @@ package com.tuyrt.architecture.capacity.network
 
 import com.tuyrt.architecture.base.arch.BaseApp
 import com.tuyrt.architecture.capacity.log.KLog
-import com.tuyrt.architecture.capacity.network.data.*
+import com.tuyrt.architecture.capacity.network.response.*
 import com.tuyrt.architecture.capacity.network.error.RequestException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

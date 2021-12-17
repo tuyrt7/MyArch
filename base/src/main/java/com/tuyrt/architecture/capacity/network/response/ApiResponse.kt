@@ -1,4 +1,4 @@
-package com.tuyrt.architecture.capacity.network.data
+package com.tuyrt.architecture.capacity.network.response
 
 import com.tuyrt.architecture.capacity.network.error.RequestException
 

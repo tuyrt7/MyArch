@@ -1,4 +1,4 @@
-package com.tuyrt.architecture.capacity.network.data
+package com.tuyrt.architecture.capacity.network.response
 
 /**
  * Created by tuyrt7 on 2021/12/3.

@@ -1,6 +1,6 @@
 package com.tuyrt.myarch.base
 
-import com.tuyrt.architecture.capacity.network.data.BaseResponse
+import com.tuyrt.architecture.capacity.network.response.BaseResponse
 
 /**
  * Created by tuyrt7 on 2021/12/6.

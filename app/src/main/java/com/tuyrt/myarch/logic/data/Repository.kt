@@ -2,9 +2,7 @@ package com.tuyrt.myarch.logic.data
 
 import com.tuyrt.architecture.capacity.log.KLog
 import com.tuyrt.architecture.capacity.network.BaseRepository
-import com.tuyrt.architecture.capacity.network.data.BaseResponse
-import com.tuyrt.architecture.capacity.network.data.SuccessResponse
-import com.tuyrt.architecture.capacity.network.error.RequestException
+import com.tuyrt.architecture.capacity.network.response.BaseResponse
 import com.tuyrt.myarch.logic.data.db.ArchDatabase
 import com.tuyrt.myarch.logic.data.entity.LoginModel
 import com.tuyrt.myarch.logic.data.http.MyNetwork

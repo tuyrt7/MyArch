@@ -1,7 +1,7 @@
 package com.tuyrt.myarch.ui
 
 import androidx.lifecycle.ViewModel
-import com.tuyrt.architecture.capacity.network.data.BaseResponse
+import com.tuyrt.architecture.capacity.network.response.BaseResponse
 import com.tuyrt.architecture.capacity.network.StateLiveData
 import com.tuyrt.architecture.capacity.network.request
 import com.tuyrt.architecture.ext.launchFlowAndCollect

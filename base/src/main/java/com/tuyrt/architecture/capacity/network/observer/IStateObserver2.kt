@@ -2,7 +2,7 @@ package com.tuyrt.architecture.capacity.network.observer
 
 import androidx.lifecycle.Observer
 import com.tuyrt.architecture.capacity.network.error.RequestException
-import com.tuyrt.architecture.capacity.network.data.*
+import com.tuyrt.architecture.capacity.network.response.*
 
 /**
  * Created by tuyrt7 on 2021/12/15.

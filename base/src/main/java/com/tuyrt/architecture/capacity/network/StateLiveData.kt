@@ -3,7 +3,7 @@ package com.tuyrt.architecture.capacity.network
 import androidx.lifecycle.*
 import com.tuyrt.architecture.base.arch.BaseApp
 import com.tuyrt.architecture.capacity.network.*
-import com.tuyrt.architecture.capacity.network.data.*
+import com.tuyrt.architecture.capacity.network.response.*
 import com.tuyrt.architecture.capacity.network.error.RequestException
 import com.tuyrt.architecture.capacity.network.observer.IStateObserver
 import com.tuyrt.architecture.capacity.network.observer.IStateObserver2
