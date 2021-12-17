@@ -31,9 +31,9 @@ fun <T> StateLiveData<T>.request(
 class StateLiveData<T> : MutableLiveData<BaseResponse<T>>() {
 
     /**
-     *  liveData 使用此监听观察状态 ：配合 BaseRepository#fire 请求
+     *  liveData 使用此监听观察状态 ：配合 普通协程请求 BaseRepository#fire
      */
-     fun observeState(
+     fun observeFire(
         owner: LifecycleOwner,
         isShowLoading: Boolean = true,
         isShowErrorToast: Boolean = true,
@@ -112,9 +112,9 @@ class StateLiveData<T> : MutableLiveData<BaseResponse<T>>() {
     }
 
     /**
-     *  liveData 使用此监听观察状态 ：配合 BaseRepository#water 请求
+     *  liveData 使用此监听观察状态 ：配合Flow请求 BaseRepository#water
      */
-    fun observeState2(
+    fun observeWater(
         owner: LifecycleOwner,
         isShowLoading: Boolean = true,
         isShowErrorToast: Boolean = true,

@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import org.jetbrains.annotations.NotNull
 
 /**
  * Created by tuyrt7 on 2021/12/7.
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 /**
  *  启动Activity
  */
-inline fun <reified T : Activity> Activity.startActivity(bundle: Bundle? = null) {
+inline fun <reified T : Activity> Activity.goActivity(bundle: Bundle? = null) {
     val intent = Intent(this, T::class.java)
     if (bundle != null) {
         intent.putExtras(bundle)
@@ -63,3 +63,42 @@ private fun findActivity(context: Context): Activity? {
     }
 }
 
+/**
+ *  设置toolbar
+ */
+fun AppCompatActivity.showToolbar(
+    @NotNull toolbar: Toolbar,
+    titleStr: String? = null,
+    showBackArrow: Boolean = true,
+    backBlock: (() -> Unit) = { finish() }
+) {
+    toolbar.run {
+        titleStr?.let {
+            title = it
+        }
+        toolbar.title = title
+        setSupportActionBar(toolbar)
+        supportActionBar?.setHomeButtonEnabled(showBackArrow)
+        supportActionBar?.setDisplayHomeAsUpEnabled(showBackArrow)
+        setNavigationOnClickListener { backBlock() }
+    }
+}
+
+fun Fragment.showToolbar(
+    @NotNull toolbar: Toolbar,
+    titleStr: String? = null,
+    showBackArrow: Boolean = true,
+    backBlock: (() -> Unit) = { requireActivity().finish() }
+) {
+    val activity = requireActivity() as AppCompatActivity
+    toolbar.run {
+        titleStr?.let {
+            title = it
+        }
+        toolbar.title = title
+        activity.setSupportActionBar(toolbar)
+        activity.supportActionBar?.setHomeButtonEnabled(showBackArrow)
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(showBackArrow)
+        setNavigationOnClickListener { backBlock() }
+    }
+}

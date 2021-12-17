@@ -1,4 +1,4 @@
-package com.tuyrt.myarch.logic.model
+package com.tuyrt.myarch.logic.data.entity
 
 
 data class LoginModel(

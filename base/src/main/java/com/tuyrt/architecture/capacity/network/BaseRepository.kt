@@ -15,6 +15,35 @@ import kotlinx.coroutines.withContext
 abstract class BaseRepository {
 
     /**
+     *  处理 本地 + 远程的数据发送 、缓存远程数据的策略
+     * @param remoto 网络数据
+     * @param local 本地数据
+     * @param save 当网络请求成功后，保存数据等操作
+     * @param isUseCache 是否使用缓存
+     */
+    protected suspend fun <T> cacheNetCall(
+        remote: suspend () -> BaseResponse<T>,
+        local: suspend () -> T?,
+        save: suspend (T) -> Unit,
+        isUserCache: (T?) -> Boolean = { true }
+    ): BaseResponse<T> {
+        val localData = local.invoke()
+        return if (isUserCache(localData) && localData != null) {
+            KLog.d("从缓存中拿：$localData")
+            SuccessResponse(localData)
+        } else {
+            remote.invoke().let { response ->
+                if (response.isSuccess()) {
+                    response.getResData()?.also { save(it) }
+                    response
+                } else {
+                    throw RequestException(response)
+                }
+            }
+        }
+    }
+
+    /**
      *  普通协程请求
      */
     protected suspend fun <T> fire(

@@ -1,16 +1,15 @@
 package com.tuyrt.myarch.ui
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.tuyrt.architecture.capacity.network.BaseResponse
+import com.tuyrt.architecture.capacity.network.data.BaseResponse
+import com.tuyrt.architecture.capacity.network.StateLiveData
 import com.tuyrt.architecture.capacity.network.request
-import com.tuyrt.architecture.ext.launchUI
-import com.tuyrt.myarch.logic.model.LoginModel
-import com.tuyrt.myarch.logic.model.Secret
-import com.tuyrt.myarch.logic.network.Repository
-import kotlinx.coroutines.flow.*
+import com.tuyrt.architecture.ext.launchFlowAndCollect
+import com.tuyrt.myarch.logic.data.entity.LoginModel
+import com.tuyrt.myarch.logic.data.entity.SecretModel
+import com.tuyrt.myarch.logic.data.Repository
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
 /**
  * Created by tuyrt7 on 2021/12/3.
@@ -18,7 +17,7 @@ import kotlinx.coroutines.flow.*
  */
 class MainViewModel : ViewModel() {
 
-    val loginLiveData = MutableLiveData<BaseResponse<LoginModel>>()
+    val loginLiveData = StateLiveData<LoginModel>()
 
     fun login() {
         loginLiveData.request(this) {
@@ -37,30 +36,23 @@ class MainViewModel : ViewModel() {
     val loginFlow: SharedFlow<BaseResponse<LoginModel>> = _loginFlow
 
     fun loginFlow() {
-        launchUI {
-            val asLiveData = Repository.loginFlow("PuKxVxvMzBp2EJM").asLiveData(viewModelScope.coroutineContext)
-            Repository.loginFlow("PuKxVxvMzBp2EJM").collect {
-                _loginFlow.tryEmit(it)
-            }
+        launchFlowAndCollect({ Repository.loginFlow("PuKxVxvMzBp2EJM")}) {
+            _loginFlow.tryEmit(it)
         }
     }
 
     fun loginWithWrongPwdFlow() {
-        launchUI {
-            Repository.loginFlow("123456").collect {
-                _loginFlow.tryEmit(it)
-            }
+        launchFlowAndCollect({ Repository.loginFlow("123456")}) {
+            _loginFlow.tryEmit(it)
         }
     }
 
     //  Flow + LiveData
-    val secretLiveData = MutableLiveData<BaseResponse<Secret>>()
+    val secretLiveData = StateLiveData<SecretModel>()
 
     fun getKey() {
-        launchUI {
-            Repository.getKey("123456").collect {
-                secretLiveData.value = it
-            }
+        launchFlowAndCollect({ Repository.getKeyFlow("123456")}){
+            secretLiveData.value = it
         }
     }
 }

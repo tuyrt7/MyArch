@@ -1,7 +1,7 @@
-package com.tuyrt.myarch.logic.network.biz
+package com.tuyrt.myarch.logic.data.http
 
 import com.tuyrt.myarch.logic.network.RetrofitClient
-import com.tuyrt.myarch.logic.network.XkApi
+import com.tuyrt.myarch.logic.network.api.XkApi
 
 /**
  * Created by tuyrt7 on 2021/12/9.

@@ -1,7 +1,7 @@
-package com.tuyrt.myarch.logic.network
+package com.tuyrt.myarch.logic.network.api
 
 import com.tuyrt.myarch.base.BaseRes
-import com.tuyrt.myarch.logic.model.Secret
+import com.tuyrt.myarch.logic.data.entity.SecretModel
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -20,5 +20,5 @@ interface XkApi {
     suspend fun getKey(
         @Field("code") code: String,
         @Field("terminal_id") terminalId: String = "xxxxxxxxxxxxxxxx"
-    ): BaseRes<Secret>
+    ): BaseRes<SecretModel>
 }

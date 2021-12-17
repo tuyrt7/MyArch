@@ -1,11 +1,8 @@
-package com.tuyrt.architecture.capacity.network.data
+package com.tuyrt.architecture.capacity.network
 
 import com.tuyrt.architecture.base.arch.BaseApp
 import com.tuyrt.architecture.capacity.log.KLog
-import com.tuyrt.architecture.capacity.network.HttpRequestCallback
-import com.tuyrt.architecture.capacity.network.OnFailureCallback
-import com.tuyrt.architecture.capacity.network.OnSuccessCallback
-import com.tuyrt.architecture.capacity.network.OnUnitCallback
+import com.tuyrt.architecture.capacity.network.data.*
 import com.tuyrt.architecture.capacity.network.error.RequestException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -18,7 +15,7 @@ import kotlinx.coroutines.flow.collect
 /**
  * 监听 Flow 的值的变化，回调为 DSL 的形式
  */
-suspend inline fun <T> Flow<BaseResponse<T>>.observeState(
+suspend inline fun <T> Flow<BaseResponse<T>>.observeFire(
     isShowLoading: Boolean = true,
     isShowErrorToast: Boolean = true,
     crossinline callback: HttpRequestCallback<T>.() -> Unit

@@ -13,6 +13,14 @@
         android:orientation="vertical"
         tools:context=".ui.MainActivity">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
@@ -28,37 +36,10 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btnTestXk"
+            android:id="@+id/close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="小科测试连接"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btnGo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Go小科测试"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btnGoViewBind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Go ViewBind"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btnGoDataBind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Go DataBind"
-            android:textAllCaps="false" />
-        <Button
-            android:id="@+id/btnGoBanner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Go Banner"
+            android:text="关闭"
             android:textAllCaps="false" />
 
         <androidx.core.widget.NestedScrollView

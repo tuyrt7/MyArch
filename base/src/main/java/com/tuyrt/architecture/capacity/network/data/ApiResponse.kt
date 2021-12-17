@@ -5,6 +5,7 @@ import com.tuyrt.architecture.capacity.network.error.RequestException
 /**
  * Created by tuyrt7 on 2021/12/3.
  * 说明：临时解析接口 数据结构
+ * 注意：如果状态码改变，需要对应修改 errorCode
  */
 open class ApiResponse<T>(
     open val data: T? = null,
@@ -27,7 +28,10 @@ class StartResponse<T> : ApiResponse<T>()
 
 class CompletionResponse<T> : ApiResponse<T>()
 
-data class SuccessResponse<T>(override val data: T) : ApiResponse<T>(data)
+/**
+ *  配置errorCode=0，是为了cacheNetCall之后再次经过 协程和Flow 也能再次按照既定条件走下去
+ */
+data class SuccessResponse<T>(override val data: T) : ApiResponse<T>(data, errorCode = 0)
 
 class EmptyResponse<T> : ApiResponse<T>()
 

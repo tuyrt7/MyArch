@@ -4,12 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/drawable/progress_dialog.xml" value="0.25333333333333335" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/activity_banner.xml" value="0.18796296296296297" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/activity_test.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/activity_test_databind.xml" value="0.264" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/activity_test_viewbind.xml" value="0.176" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/dialog_loading.xml" value="0.2" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/dialog_progress.xml" value="0.536" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/fragment_home.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/item_article_list.xml" value="0.18796296296296297" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/layout_custom_progress_dialog_view.xml" value="0.2324074074074074" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/drawable/loading_daisy_bg.xml" value="0.2490740740740741" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/activity_base_toolbar.xml" value="0.21481481481481482" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/dialog_loading.xml" value="0.2064814814814815" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/layout_custom_progress_dialog_view.xml" value="0.23743589743589744" />
       </map>
