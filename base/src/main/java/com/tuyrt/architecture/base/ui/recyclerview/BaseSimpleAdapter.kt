@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
  * @author: tuyrt7 on 2020/11/2.
  * 说明：RecyclerView.Adapter 基类 ( DataBinding )
  */
-abstract class BaseSimpleAdapter<T, B : ViewDataBinding>(private val itemLayoutId: Int) : RecyclerView.Adapter<ViewHolder>() {
+abstract class BaseSimpleAdapter<B : ViewDataBinding, T>(private val itemLayoutId: Int) : RecyclerView.Adapter<ViewHolder>() {
 
     private var mDataList = mutableListOf<T>()
     private var mItemClick: ((adapter: BaseSimpleAdapter<*, *>, view: View, position: Int) -> Unit)? = null
