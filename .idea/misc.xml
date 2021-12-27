@@ -16,8 +16,14 @@
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/layout_custom_progress_dialog_view.xml" value="0.2324074074074074" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/drawable/loading_daisy_bg.xml" value="0.2490740740740741" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/activity_base_toolbar.xml" value="0.21481481481481482" />
-        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/dialog_loading.xml" value="0.2064814814814815" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/dialog_app.xml" value="0.2" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/dialog_example_binding.xml" value="0.264" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/dialog_loading.xml" value="0.2" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/layout_custom_progress_dialog_view.xml" value="0.23743589743589744" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/layout_example_custom_view.xml" value="0.23743589743589744" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/recycle_item_product.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/recycle_item_product_footer.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/recycle_item_product_header.xml" value="0.23333333333333334" />
       </map>
     </option>
   </component>

@@ -6,45 +6,49 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.FloatRange
-import androidx.annotation.LayoutRes
+import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatDialog
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
-
+import com.tuyrt.architecture.R
+import com.tuyrt.architecture.R.style
 
 /**
- * @author: Albert Li
- * @contact: albertlii@163.com
- * @time: 2020/6/28 2:02 PM
- * @description: dialog的基类
- * @since: 1.0.0
+ * Created by tuyrt7 on 2021/12/17.
+ * 说明：dialog的基类
+ *
+ *  @lifecycle 用于绑定binding宿主的生命周期之后，自动销毁
  */
-abstract class BaseDialog : AppCompatDialog {
+abstract class BaseDialog @JvmOverloads constructor(
+    context: Context,
+    @StyleRes themeResId: Int = style.BaseDialogStyle
+) : AppCompatDialog(context, themeResId) {
+
     private var width: Int = ViewGroup.LayoutParams.MATCH_PARENT
     private var height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     private var gravity: Int = Gravity.CENTER
     private var animRes: Int = -1
     private var dimAmount: Float = 0.5f
     private var alpha: Float = 1f
-
-    protected var uiScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, themeResId: Int) : super(context, themeResId)
+    //是否支持点击关闭
+    private var mIsCancelable = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initContentView()
-        initialize(savedInstanceState)
+        initial(savedInstanceState)
         refreshAttributes()
     }
 
+    /**
+     *  如果不使用 binding 的方式，在此处设置 contentView
+     */
     protected open fun initContentView() {
-        setContentView(getLayoutId())
+
     }
+
+    /**
+     *  初始化内容
+     */
+    abstract fun initial(savedInstanceState: Bundle?)
 
     /**
      * 设置宽度
@@ -89,12 +93,9 @@ abstract class BaseDialog : AppCompatDialog {
         this.animRes = animation
     }
 
-    /**
-     * 刷新属性
-     */
-    fun refreshAttributes() {
+    protected open fun refreshAttributes() {
         window!!.let {
-            val params: WindowManager.LayoutParams = it.getAttributes()
+            val params: WindowManager.LayoutParams = it.attributes
             params.width = width
             params.height = height
             params.gravity = gravity
@@ -102,19 +103,11 @@ abstract class BaseDialog : AppCompatDialog {
             params.dimAmount = dimAmount
             params.alpha = alpha
             params.windowAnimations = animRes
-            it.setAttributes(params)
+            it.attributes = params
         }
+
+        setCanceledOnTouchOutside(mIsCancelable)
     }
 
-    override fun dismiss() {
-        uiScope.cancel()
-        super.dismiss()
-    }
 
-    protected abstract @LayoutRes
-    fun getLayoutId(): Int
-
-    protected open fun initialize(savedInstanceState: Bundle?) {
-
-    }
 }

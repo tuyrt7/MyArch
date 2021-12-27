@@ -12,15 +12,17 @@ import com.tuyrt.architecture.ui.dialog.LoadingDialog
  * Created by tuyrt7 on 2021/12/13.
  * 说明：
  */
-abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(contentLayoutId) , ILoadingView {
+abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(contentLayoutId), ILoadingView {
+
+    private var loadingDialog: LoadingDialog? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initial(savedInstanceState)
+        initial(view, savedInstanceState)
         createObserver()
     }
 
-    abstract fun initial(savedInstanceState: Bundle?)
+    abstract fun initial(view: View, savedInstanceState: Bundle?)
 
     abstract fun createObserver()
 
@@ -33,7 +35,7 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(cont
         //增加了Fragment是否可见的判断
         if (!isLoaded && !isHidden) {
             lazyInit()
-            KLog.d( "lazyInit:!!!!!!!")
+            KLog.d("lazyInit:!!!!!!!")
             isLoaded = true
         }
     }
@@ -43,18 +45,26 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(cont
     override fun onDestroyView() {
         super.onDestroyView()
         isLoaded = false
-        dismissLoading()
     }
 
     // -----懒加载-------------------------------------------------end
 
     override fun showLoading(text: String?) {
         if (!context.isActivityDestroy()) {
-            LoadingDialog.show(this, text)
+            if (loadingDialog == null) {
+                loadingDialog = LoadingDialog(requireContext(), lifecycle)
+            }
+            loadingDialog!!.setLoadingText(text)
+            if (!loadingDialog!!.isShowing) {
+                loadingDialog!!.show()
+            }
         }
     }
 
     override fun dismissLoading() {
-        LoadingDialog.dismiss(this)
+        if (loadingDialog != null && loadingDialog!!.isShowing) {
+            loadingDialog!!.dismiss()
+        }
+        loadingDialog = null
     }
 }

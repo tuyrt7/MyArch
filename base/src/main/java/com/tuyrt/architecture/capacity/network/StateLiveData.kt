@@ -43,7 +43,7 @@ class StateLiveData<T> : MutableLiveData<BaseResponse<T>>() {
         observe(owner, object : IStateObserver<T> {
             override fun onStart() {
                 if (isShowLoading) {
-                    BaseApp.eventViewModel.showDialog.call()
+                    BaseApp.eventViewModel.showLoading()
                 }
                 requestCallback.startCallback?.invoke()
             }
@@ -72,7 +72,7 @@ class StateLiveData<T> : MutableLiveData<BaseResponse<T>>() {
         })
     }
 
-    inline fun <T> LiveData<BaseResponse<T>>.observeResponse(
+     inline fun observeFireResponse(
         owner: LifecycleOwner,
         isShowLoading: Boolean = true,
         crossinline onStart: OnUnitCallback = {},
@@ -85,7 +85,7 @@ class StateLiveData<T> : MutableLiveData<BaseResponse<T>>() {
         observe(owner, object : IStateObserver<T> {
             override fun onStart() {
                 if (isShowLoading) {
-                    BaseApp.eventViewModel.showDialog.call()
+                    BaseApp.eventViewModel.showLoading()
                 }
                 onStart()
             }
@@ -125,7 +125,7 @@ class StateLiveData<T> : MutableLiveData<BaseResponse<T>>() {
         observe(owner, object : IStateObserver2<T> {
             override fun onStart() {
                 if (isShowLoading) {
-                    BaseApp.eventViewModel.showDialog.call()
+                    BaseApp.eventViewModel.showLoading()
                 }
                 requestCallback.startCallback?.invoke()
             }
@@ -154,8 +154,7 @@ class StateLiveData<T> : MutableLiveData<BaseResponse<T>>() {
         })
     }
 
-
-    inline fun <T> LiveData<BaseResponse<T>>.observeResponse2(
+    inline fun observeWaterResponse(
         owner: LifecycleOwner,
         isShowLoading: Boolean = true,
         crossinline onStart: OnUnitCallback = {},
@@ -168,7 +167,7 @@ class StateLiveData<T> : MutableLiveData<BaseResponse<T>>() {
         observe(owner, object : IStateObserver2<T> {
             override fun onStart() {
                 if (isShowLoading) {
-                    BaseApp.eventViewModel.showDialog.call()
+                    BaseApp.eventViewModel.showLoading()
                 }
                 onStart()
             }

@@ -12,42 +12,18 @@ import kotlinx.coroutines.flow.MutableSharedFlow
  */
 class EventViewModel : ViewModel() {
 
-    val showDialog by lazy { SingleLiveEvent<String?>() }
-    val dismissDialog by lazy { SingleLiveEvent<Void>() }
+    val loadingEvent by lazy { SingleLiveEvent<Boolean>() }
     val toastEvent by lazy { SingleLiveEvent<String?>() }
 
-    fun showLoading(msg: String?) {
-        showDialog.postEvent(msg)
+    fun showLoading() {
+        loadingEvent.postEvent(true)
     }
 
     fun dismissLoading() {
-        dismissDialog.postEvent(null)
+        loadingEvent.postEvent(false)
     }
 
     fun toast(msg: String?) {
         toastEvent.postValue(msg)
-    }
-
-    // Flow
-    val showDialogFlow = MutableSharedFlow<String?>()
-    val dismissDialogFlow = MutableSharedFlow<Void?>()
-    val toastFlow = MutableSharedFlow<String?>()
-
-    fun showLoadingFlow(msg: String?) {
-        launchUI {
-            showDialogFlow.emit(msg)
-        }
-    }
-
-    fun dismissLoadingFlow() {
-        launchUI {
-            dismissDialogFlow.emit(null)
-        }
-    }
-
-    fun toastFlow(msg: String?) {
-        launchUI {
-            toastFlow.emit(msg)
-        }
     }
 }

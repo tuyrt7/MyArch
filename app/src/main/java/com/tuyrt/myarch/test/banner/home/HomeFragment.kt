@@ -1,6 +1,7 @@
 package com.tuyrt.myarch.test.banner.home
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.fragment.app.viewModels
@@ -33,7 +34,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         fun newInstance() = HomeFragment()
     }
 
-    override fun initial(savedInstanceState: Bundle?) {
+    override fun initial(view: View, savedInstanceState: Bundle?) {
 
         binding.run {
             showToolbar(toolbarHome)

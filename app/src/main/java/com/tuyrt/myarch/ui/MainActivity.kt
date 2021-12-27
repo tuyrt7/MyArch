@@ -6,7 +6,8 @@ import androidx.lifecycle.lifecycleScope
 import com.hi.dhl.binding.viewbind
 import com.tuyrt.architecture.base.arch.BaseActivity
 import com.tuyrt.architecture.capacity.log.KLog
-import com.tuyrt.architecture.capacity.network.observeFire
+import com.tuyrt.architecture.capacity.network.observeWater
+import com.tuyrt.architecture.capacity.network.observeWaterResponse
 import com.tuyrt.architecture.ext.goActivity
 import com.tuyrt.architecture.ext.toast
 import com.tuyrt.myarch.R
@@ -25,13 +26,13 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
         binding.run {
             btnLogin.setOnClickListener {
-                // viewModel.login()
-                viewModel.loginFlow()
+                viewModel.login()
+                // viewModel.loginFlow()
             }
 
             btnLoginWrong.setOnClickListener {
-                // viewModel.loginWithWrongPwd()
-                viewModel.loginWithWrongPwdFlow()
+                viewModel.loginWithWrongPwd()
+                // viewModel.loginWithWrongPwdFlow()
             }
 
             btnTestXk.setOnClickListener {
@@ -47,44 +48,44 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     }
 
     override fun createObserver() {
-        viewModel.loginLiveData.observeFire(this) {
-            onStart {
-                KLog.d("请求开始")
-            }
-
-            onSuccess {
-                KLog.d("请求成功")
-                toast("登录成功")
-
-                binding.tvResult.text = it.toString()
-            }
-            onEmpty {
-                KLog.d("数据为空")
-                toast("数据为空")
-            }
-
-            onFailure {
-                KLog.d("请求失败")
-                binding.tvResult.text = it.toString()
-            }
-
-            onFinish {
-                KLog.d("请求结束")
-            }
-        }
-
-//        viewModel.loginLiveData.observeResponse(this,false, onStart = {
-//            //LoadingDialog.show(this,"请稍后...")
-//            showMessage("你好哦你好哦你好哦")
-//        }, onFinish = {
-//            // LoadingDialog.dismiss(this)
-//            KLog.d("=========你好哦================")
-//        }) {
-//            binding.tvResult.text = it.toString()
+//        viewModel.loginLiveData.observeFire(this) {
+//            onStart {
+//                KLog.d("请求开始")
+//            }
+//
+//            onSuccess {
+//                KLog.d("请求成功")
+//                toast("登录成功")
+//
+//                binding.tvResult.text = it.toString()
+//            }
+//            onEmpty {
+//                KLog.d("数据为空")
+//                toast("数据为空")
+//            }
+//
+//            onFailure {
+//                KLog.d("请求失败")
+//                binding.tvResult.text = it.toString()
+//            }
+//
+//            onFinish {
+//                KLog.d("请求结束")
+//            }
 //        }
 
+        viewModel.loginLiveData.observeFireResponse(this, false, onStart = {
+            showLoading("加载中...")
+            //showMessage("你好哦你好哦你好哦")
+        }, onFinish = {
+            dismissLoading()
+            KLog.d("=========你好哦================")
+        }) {
+            binding.tvResult.text = it.toString()
+        }
+
         lifecycleScope.launch {
-            viewModel.loginFlow.observeFire {
+            viewModel.loginFlow.observeWater {
                 onSuccess {
                     binding.tvResult.text = it.toString()
                 }
@@ -95,12 +96,12 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 }
             }
 
-//             viewModel.loginFlow.observeResponse(onFailure = {
-//                 KLog.d("observeResponse发生了错误： ${it.code} == ${it.errorMsg}")
-//                 binding.tvResult.text = it.toString()
-//             }) {
-//                 binding.tvResult.text = it.toString()
-//             }
+             /*viewModel.loginFlow.observeWaterResponse(onFailure = {
+                 KLog.d("observeResponse发生了错误： ${it.code} == ${it.errorMsg}")
+                 binding.tvResult.text = it.toString()
+             }) {
+                 binding.tvResult.text = it.toString()
+             }*/
         }
 
         viewModel.secretLiveData.observeWater(this) {

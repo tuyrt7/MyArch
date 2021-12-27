@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.collect
 /**
  * 监听 Flow 的值的变化，回调为 DSL 的形式
  */
-suspend inline fun <T> Flow<BaseResponse<T>>.observeFire(
+suspend inline fun <T> Flow<BaseResponse<T>>.observeWater(
     isShowLoading: Boolean = true,
     isShowErrorToast: Boolean = true,
     crossinline callback: HttpRequestCallback<T>.() -> Unit
@@ -26,7 +26,7 @@ suspend inline fun <T> Flow<BaseResponse<T>>.observeFire(
             is StartResponse -> {
                 KLog.dt("Flow", "请求开始")
                 if (isShowLoading) {
-                    BaseApp.eventViewModel.showLoadingFlow(null)
+                    BaseApp.eventViewModel.showLoading()
                 }
                 requestCallback.startCallback?.invoke()
             }
@@ -38,14 +38,14 @@ suspend inline fun <T> Flow<BaseResponse<T>>.observeFire(
             is FailureResponse -> {
                 KLog.dt("Flow", "请求失败 ${response.exception.errorMsg}")
                 if (isShowErrorToast) {
-                    BaseApp.eventViewModel.toastFlow(response.exception.errorMsg)
+                    BaseApp.eventViewModel.toast(response.exception.errorMsg)
                 }
                 requestCallback.failureCallback?.invoke(response.exception)
             }
             is CompletionResponse -> {
                 KLog.dt("Flow", "请求结束")
                 if (isShowLoading) {
-                    BaseApp.eventViewModel.dismissLoadingFlow()
+                    BaseApp.eventViewModel.dismissLoading()
                 }
                 requestCallback.finishCallback?.invoke()
             }
@@ -56,7 +56,7 @@ suspend inline fun <T> Flow<BaseResponse<T>>.observeFire(
 /**
  * 监听 Flow 的值的变化
  */
-suspend inline fun <T> Flow<BaseResponse<T>>.observeResponse(
+suspend inline fun <T> Flow<BaseResponse<T>>.observeWaterResponse(
     isShowLoading: Boolean = true,
     isShowErrorToast: Boolean = true,
     crossinline onStart: OnUnitCallback = {},
@@ -71,7 +71,7 @@ suspend inline fun <T> Flow<BaseResponse<T>>.observeResponse(
             is StartResponse -> {
                 KLog.dt("Flow", "请求开始")
                 if (isShowLoading) {
-                    BaseApp.eventViewModel.showLoadingFlow(null)
+                    BaseApp.eventViewModel.showLoading()
                 }
                 onStart()
             }
@@ -83,14 +83,14 @@ suspend inline fun <T> Flow<BaseResponse<T>>.observeResponse(
             is FailureResponse -> {
                 KLog.dt("Flow", "请求失败")
                 if (isShowErrorToast) {
-                    BaseApp.eventViewModel.toastFlow(response.exception.errorMsg)
+                    BaseApp.eventViewModel.toast(response.exception.errorMsg)
                 }
                 onFailure(response.exception)
             }
             is CompletionResponse -> {
                 KLog.dt("Flow", "请求结束")
                 if (isShowLoading) {
-                    BaseApp.eventViewModel.dismissLoadingFlow()
+                    BaseApp.eventViewModel.dismissLoading()
                 }
                 onFinish()
             }

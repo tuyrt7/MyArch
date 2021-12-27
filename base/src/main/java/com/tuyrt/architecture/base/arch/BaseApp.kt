@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import com.tuyrt.architecture.capacity.log.KLog
 
 /**
  * Created by tuyrt7 on 2021/12/6.
@@ -22,6 +23,8 @@ open class BaseApp : Application(), ViewModelStoreOwner {
         super.onCreate()
         appContext = applicationContext
         eventViewModel = appViewModelProvider[EventViewModel::class.java]
+
+        KLog.init(true, "arch--")
     }
 
     override fun getViewModelStore(): ViewModelStore = ViewModelStore()
@@ -29,6 +32,7 @@ open class BaseApp : Application(), ViewModelStoreOwner {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var appContext: Context
+
         // 全局 viewModel
         lateinit var eventViewModel: EventViewModel
     }

@@ -1,62 +1,44 @@
 package com.tuyrt.architecture.base.ui.dialog
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.*
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.annotation.FloatRange
 import androidx.annotation.LayoutRes
-import androidx.annotation.StyleRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.tuyrt.architecture.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-
 
 /**
- *  DialogFragment的基类
+ * Created by tuyrt7 on 2021/12/24.
+ * 说明：DialogFragment的基类
  */
-abstract class BaseDialogFragment : DialogFragment(), CoroutineScope by MainScope() {
-    protected lateinit var rootView: View
+abstract class BaseDialogFragment(@LayoutRes contentLayoutId: Int = 0) : DialogFragment(contentLayoutId) {
 
     private var width: Int = ViewGroup.LayoutParams.MATCH_PARENT
     private var height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     private var gravity: Int = Gravity.CENTER
-    private var animRes: Int = -1
+    // 弹窗样式
+    private var animRes: Int = R.style.BaseDialogStyle
     // 背景透明
     private var dimAmount: Float = 0.4f
     private var alpha: Float = 1f
-
     //是否支持点击关闭
     private var mIsCancelable = false
 
-    @SuppressLint("ResourceType")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(
-            if (getDialogStyle() != null) getDialogStyle()!! else STYLE_NO_TITLE,
-            if (getDialogTheme() != null) getDialogTheme()!! else R.style.Common_NoTitle_Dialog
-        )
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        rootView = inflater.inflate(getLayoutId(), container, false)
-        return rootView
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initialize(view, savedInstanceState)
+        initial(view, savedInstanceState)
+        createObserver()
     }
+
+
 
     override fun onStart() {
         // 在super之前执行，因为super.onStart()中dialog会执行自己的show方法
@@ -109,7 +91,7 @@ abstract class BaseDialogFragment : DialogFragment(), CoroutineScope by MainScop
     /**
      * 刷新属性
      */
-    open fun refreshAttributes() {
+    protected open fun refreshAttributes() {
         if (dialog != null) {
             dialog!!.window!!.let {
                 // 如果不设置这句代码, 那么弹框就会与四边都有一定的距离
@@ -127,22 +109,11 @@ abstract class BaseDialogFragment : DialogFragment(), CoroutineScope by MainScop
         }
     }
 
-    protected abstract fun getDialogStyle(): Int?
+    abstract fun initial(view: View, savedInstanceState: Bundle?)
+    abstract fun createObserver()
 
-    protected abstract @StyleRes
-    fun getDialogTheme(): Int?
-
-    protected abstract @LayoutRes
-    fun getLayoutId(): Int
-
-    protected abstract fun initialize(view: View, savedInstanceState: Bundle?)
-
-    fun isShow(): Boolean {
-        if (dialog != null && dialog!!.isShowing) {
-            return true
-        } else {
-            return false
-        }
+     fun isShow(): Boolean {
+        return dialog != null && dialog!!.isShowing
     }
 
     fun show(activity: FragmentActivity) {
@@ -150,7 +121,7 @@ abstract class BaseDialogFragment : DialogFragment(), CoroutineScope by MainScop
     }
 
     fun show(fragment: Fragment) {
-        show(fragment.fragmentManager!!)
+        show(fragment.childFragmentManager)
     }
 
     fun show(manager: FragmentManager) {
@@ -171,8 +142,5 @@ abstract class BaseDialogFragment : DialogFragment(), CoroutineScope by MainScop
         }
     }
 
-    override fun onDestroy() {
-        cancel()
-        super.onDestroy()
-    }
+
 }
