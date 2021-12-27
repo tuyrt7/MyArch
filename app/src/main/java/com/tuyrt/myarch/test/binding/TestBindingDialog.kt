@@ -1,13 +1,13 @@
-package com.tuyrt.architecture.base.binding
+package com.tuyrt.myarch.test.binding
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle
 import com.hi.dhl.binding.databind
-import com.tuyrt.architecture.R
 import com.tuyrt.architecture.base.ui.dialog.BaseDialog
-import com.tuyrt.architecture.databinding.DialogExampleBindingBinding
+import com.tuyrt.myarch.R
+import com.tuyrt.myarch.databinding.DialogExampleBindingBinding
 
 /**
  * Created by tuyrt7 on 2021/12/24.

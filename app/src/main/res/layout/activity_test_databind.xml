@@ -8,6 +8,10 @@
         <variable
             name="title"
             type="String" />
+
+        <variable
+            name="user"
+            type="com.tuyrt.myarch.test.binding.model.User" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -38,11 +42,35 @@
             android:layout_weight="1"
             android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/tvResult"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@{`BaseActivity 使用 `+title }" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`BaseActivity 使用 `+title }" />
+
+                <ViewStub
+                    android:id="@+id/viewStub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout="@layout/view_stub" />
+
+                <include
+                    android:id="@+id/includeData"
+                    layout="@layout/layout_include_data_item"
+                    app:user="@{user}" />
+
+                <include
+                    android:id="@+id/includeDataMerge"
+                    layout="@layout/layout_merge_data_item"
+                    app:user="@{user}" />
+
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

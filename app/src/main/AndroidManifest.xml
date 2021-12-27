@@ -30,9 +30,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:label="Test"/>
 
-        <activity android:name=".test.viewbinding.DataBindingActivity"
+        <activity android:name=".test.binding.activity.DataBindingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".test.viewbinding.ViewBindingActivity"
+        <activity android:name=".test.binding.activity.ViewBindingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

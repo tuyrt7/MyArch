@@ -1,4 +1,4 @@
-package com.tuyrt.architecture.base.binding.adapter
+package com.tuyrt.myarch.test.binding.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,9 @@ import androidx.annotation.LayoutRes
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.hi.dhl.binding.viewbind
-import com.tuyrt.architecture.R
-import com.tuyrt.architecture.databinding.RecycleItemProductBinding
+import com.tuyrt.myarch.R
+import com.tuyrt.myarch.databinding.RecycleItemProductBinding
+import com.tuyrt.myarch.test.binding.model.Product
 
 /**
  * Created by tuyrt7 on 2021/12/27.

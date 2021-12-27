@@ -7,14 +7,13 @@ import com.hi.dhl.binding.viewbind
 import com.tuyrt.architecture.base.arch.BaseActivity
 import com.tuyrt.architecture.capacity.log.KLog
 import com.tuyrt.architecture.capacity.network.observeWater
-import com.tuyrt.architecture.capacity.network.observeWaterResponse
 import com.tuyrt.architecture.ext.goActivity
 import com.tuyrt.architecture.ext.toast
 import com.tuyrt.myarch.R
 import com.tuyrt.myarch.databinding.ActivityMainBinding
 import com.tuyrt.myarch.test.banner.BannerActivity
-import com.tuyrt.myarch.test.viewbinding.DataBindingActivity
-import com.tuyrt.myarch.test.viewbinding.ViewBindingActivity
+import com.tuyrt.myarch.test.binding.activity.DataBindingActivity
+import com.tuyrt.myarch.test.binding.activity.ViewBindingActivity
 import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity(R.layout.activity_main) {

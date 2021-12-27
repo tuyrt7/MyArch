@@ -9,11 +9,20 @@
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/activity_test.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/activity_test_databind.xml" value="0.264" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/activity_test_viewbind.xml" value="0.176" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/dialog_example_binding.xml" value="0.2212962962962963" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/dialog_loading.xml" value="0.2" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/dialog_progress.xml" value="0.536" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/fragment_home.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/item_article_list.xml" value="0.18796296296296297" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/layout_custom_progress_dialog_view.xml" value="0.2324074074074074" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/layout_example_custom_view.xml" value="0.1" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/layout_include_data_item.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/layout_include_item.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/layout_merge_data_item.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/layout_merge_item.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/recycle_item_product.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/recycle_item_product_footer.xml" value="0.2212962962962963" />
+        <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/app/src/main/res/layout/view_stub.xml" value="0.20925925925925926" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/drawable/loading_daisy_bg.xml" value="0.2490740740740741" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/activity_base_toolbar.xml" value="0.21481481481481482" />
         <entry key="..\:/Users/bayai/Desktop/tuyrt7/demo/mvvm/MyArch/base/src/main/res/layout/dialog_app.xml" value="0.2" />

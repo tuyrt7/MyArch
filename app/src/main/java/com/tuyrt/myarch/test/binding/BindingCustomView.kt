@@ -1,18 +1,18 @@
-package com.tuyrt.architecture.base.binding
+package com.tuyrt.myarch.test.binding
 
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.hi.dhl.binding.databind
 import com.hi.dhl.binding.viewbind
-import com.tuyrt.architecture.R
-import com.tuyrt.architecture.databinding.LayoutExampleCustomViewBinding
+import com.tuyrt.myarch.R
+import com.tuyrt.myarch.databinding.LayoutExampleCustomViewBinding
 
 /**
  * Created by tuyrt7 on 2021/12/24.
  * 说明：样例 binding 自定义ViewGroup
  */
-class CustomView @JvmOverloads constructor(
+class BindingCustomView @JvmOverloads constructor(
     context: Context,
     attr: AttributeSet? = null,
     defStyleAttr: Int = 0,

@@ -1,4 +1,4 @@
-package com.tuyrt.architecture.base.binding.adapter
+package com.tuyrt.myarch.test.binding.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hi.dhl.binding.databind
 import com.hi.dhl.binding.viewbind
-import com.tuyrt.architecture.R
-import com.tuyrt.architecture.databinding.RecycleItemProductBinding
-import com.tuyrt.architecture.databinding.RecycleItemProductFooterBinding
-import com.tuyrt.architecture.databinding.RecycleItemProductHeaderBinding
+import com.tuyrt.myarch.R
+import com.tuyrt.myarch.databinding.RecycleItemProductBinding
+import com.tuyrt.myarch.databinding.RecycleItemProductFooterBinding
+import com.tuyrt.myarch.databinding.RecycleItemProductHeaderBinding
+import com.tuyrt.myarch.test.binding.model.Product
 
 
 /**
@@ -95,15 +96,3 @@ class ProductViewHolderFooter(view: View) : RecyclerView.ViewHolder(view) {
     }
 }
 
-data class Product(val id: Int, val name: String) {
-    companion object {
-        val CALLBACK: DiffUtil.ItemCallback<Product> = object : DiffUtil.ItemCallback<Product>() {
-            // 判断两个Objects 是否代表同一个item对象， 一般使用Bean的id比较
-            override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean =
-                oldItem.id == newItem.id
-
-            // 判断两个Objects 是否有相同的内容。
-            override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean = true
-        }
-    }
-}
