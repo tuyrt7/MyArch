@@ -56,9 +56,9 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) : AppCompatActi
 
     override fun showLoading(text: String?) {
         if (!isFinishing) {
-            mLoadingDialog.setLoadingText(text)
-            if (!mLoadingDialog.isShowing) {
-                mLoadingDialog.show()
+            mLoadingDialog.run {
+                setLoadingText(text)
+                if (!isShowing) show()
             }
         }
     }

@@ -47,33 +47,33 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     }
 
     override fun createObserver() {
-//        viewModel.loginLiveData.observeFire(this) {
-//            onStart {
-//                KLog.d("请求开始")
-//            }
-//
-//            onSuccess {
-//                KLog.d("请求成功")
-//                toast("登录成功")
-//
-//                binding.tvResult.text = it.toString()
-//            }
-//            onEmpty {
-//                KLog.d("数据为空")
-//                toast("数据为空")
-//            }
-//
-//            onFailure {
-//                KLog.d("请求失败")
-//                binding.tvResult.text = it.toString()
-//            }
-//
-//            onFinish {
-//                KLog.d("请求结束")
-//            }
-//        }
+        viewModel.loginLiveData.observeFire(this) {
+            onStart {
+                KLog.d("请求开始")
+            }
 
-        viewModel.loginLiveData.observeFireResponse(this, false, onStart = {
+            onSuccess {
+                KLog.d("请求成功")
+                toast("登录成功")
+
+                binding.tvResult.text = it.toString()
+            }
+            onEmpty {
+                KLog.d("数据为空")
+                toast("数据为空")
+            }
+
+            onFailure {
+                KLog.d("请求失败")
+                binding.tvResult.text = it.toString()
+            }
+
+            onFinish {
+                KLog.d("请求结束")
+            }
+        }
+
+        /*viewModel.loginLiveData.observeFireResponse(this, false, onStart = {
             showLoading("加载中...")
             //showMessage("你好哦你好哦你好哦")
         }, onFinish = {
@@ -81,7 +81,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
             KLog.d("=========你好哦================")
         }) {
             binding.tvResult.text = it.toString()
-        }
+        }*/
 
         lifecycleScope.launch {
             viewModel.loginFlow.observeWater {

@@ -51,9 +51,9 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(cont
 
     override fun showLoading(text: String?) {
         if (!context.isActivityDestroy()) {
-            mLoadingDialog.setLoadingText(text)
-            if (!mLoadingDialog.isShowing) {
-                mLoadingDialog.show()
+            mLoadingDialog.run {
+                setLoadingText(text)
+                if (!isShowing) show()
             }
         }
     }
