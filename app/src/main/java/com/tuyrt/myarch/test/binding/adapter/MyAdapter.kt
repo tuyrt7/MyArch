@@ -9,7 +9,7 @@ import com.tuyrt.myarch.test.binding.model.Product
  * Created by tuyrt7 on 2021/12/27.
  * 说明：
  */
-class MyAdapter : BaseSimpleAdapter<Product, RecycleItemProductBinding>(R.layout.recycle_item_product) {
+class MyAdapter : BaseSimpleAdapter<RecycleItemProductBinding, Product>(R.layout.recycle_item_product) {
 
     override fun onBindItem(itemBinding: RecycleItemProductBinding, item: Product, position: Int) {
         itemBinding.product = item

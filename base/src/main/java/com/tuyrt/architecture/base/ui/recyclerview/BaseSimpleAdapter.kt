@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 abstract class BaseSimpleAdapter<B : ViewDataBinding, T>(private val itemLayoutId: Int) : RecyclerView.Adapter<ViewHolder>() {
 
     private var mDataList = mutableListOf<T>()
-    private var mItemClick: ((adapter: BaseSimpleAdapter<*, *>, view: View, position: Int) -> Unit)? = null
+    private var mItemClick: ((view: View, data: T, position: Int) -> Unit)? = null
 
-    fun setOnItemClickListener(block: (adapter: BaseSimpleAdapter<*, *>, view: View, position: Int) -> Unit) {
+    fun setOnItemClickListener(block: (view: View, data: T, position: Int) -> Unit) {
         this.mItemClick = block
     }
 
@@ -107,7 +107,7 @@ abstract class BaseSimpleAdapter<B : ViewDataBinding, T>(private val itemLayoutI
 
         mItemClick?.let { click ->
             holder.itemView.setOnClickListener {
-                click.invoke(this, it, position)
+                click.invoke(it, data, position)
             }
         }
 
