@@ -14,7 +14,7 @@ import com.tuyrt.architecture.ui.dialog.LoadingDialog
  */
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(contentLayoutId), ILoadingView {
 
-    private var loadingDialog: LoadingDialog? = null
+    private val mLoadingDialog: LoadingDialog by lazy { LoadingDialog(requireContext(), lifecycle) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,20 +51,16 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(cont
 
     override fun showLoading(text: String?) {
         if (!context.isActivityDestroy()) {
-            if (loadingDialog == null) {
-                loadingDialog = LoadingDialog(requireContext(), lifecycle)
-            }
-            loadingDialog!!.setLoadingText(text)
-            if (!loadingDialog!!.isShowing) {
-                loadingDialog!!.show()
+            mLoadingDialog.setLoadingText(text)
+            if (!mLoadingDialog.isShowing) {
+                mLoadingDialog.show()
             }
         }
     }
 
     override fun dismissLoading() {
-        if (loadingDialog != null && loadingDialog!!.isShowing) {
-            loadingDialog!!.dismiss()
+        mLoadingDialog.run {
+            if (isShowing) dismiss()
         }
-        loadingDialog = null
     }
 }

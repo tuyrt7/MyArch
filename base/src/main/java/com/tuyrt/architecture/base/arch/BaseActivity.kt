@@ -19,7 +19,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) : AppCompatActi
 
     private var needLogin = false
 
-    private var loadingDialog: LoadingDialog? = null
+    private val mLoadingDialog: LoadingDialog by lazy { LoadingDialog(this, lifecycle) }
 
     init {
         this.javaClass.getAnnotation(ActivityConfiguration::class.java)?.let {
@@ -56,21 +56,17 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) : AppCompatActi
 
     override fun showLoading(text: String?) {
         if (!isFinishing) {
-            if (loadingDialog == null) {
-                loadingDialog = LoadingDialog(this, lifecycle)
-            }
-            loadingDialog!!.setLoadingText(text)
-            if (!loadingDialog!!.isShowing) {
-                loadingDialog!!.show()
+            mLoadingDialog.setLoadingText(text)
+            if (!mLoadingDialog.isShowing) {
+                mLoadingDialog.show()
             }
         }
     }
 
     override fun dismissLoading() {
-        if (loadingDialog != null && loadingDialog!!.isShowing) {
-            loadingDialog!!.dismiss()
+        mLoadingDialog.run {
+            if (isShowing) dismiss()
         }
-        loadingDialog = null
     }
 
 }
