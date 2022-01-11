@@ -88,7 +88,7 @@ abstract class BaseRepository {
         return if (data.isSuccess()) {
             getHttpSuccessResponse(data.getResData())
         } else {
-            handleServerExceptions(data.getResCode() ?: -1, data.getResMsg() ?: "服务器出现了错误")
+            handleServerExceptions(data.getResCode() ?: -1, data.getResMsg() ?: "服务器出错")
             FailureResponse(handleException(RequestException(data)))
         }
     }
