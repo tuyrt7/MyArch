@@ -63,4 +63,10 @@ inline fun <reified T> T?.notNull(notNullAction: (T) -> Unit, nullAction: () -> 
     return if (this != null) f() else t()
 }*/
 
+/**
+ *  类型转换
+ */
+fun <T> Any.safeAs(): T? {
+    return this as? T
+}
 

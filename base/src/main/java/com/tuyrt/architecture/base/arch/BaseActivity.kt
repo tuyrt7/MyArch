@@ -2,9 +2,13 @@ package com.tuyrt.architecture.base.arch
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
 import com.tuyrt.architecture.R
 import com.tuyrt.architecture.anno.ActivityConfiguration
+import com.tuyrt.architecture.base.arch.backpress.BackPressObserver
+import com.tuyrt.architecture.base.arch.backpress.BackPressRegistry
 import com.tuyrt.architecture.capacity.log.KLog
 import com.tuyrt.architecture.ext.toast
 import com.tuyrt.architecture.ui.dialog.LoadingDialog
@@ -69,6 +73,22 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) : AppCompatActi
         }
     }
 
+
+    /**
+     *  管理Fragment的回退，使用示例： @BackPressFragment
+     */
+
+    private val mBackPressRegistry = BackPressRegistry()
+
+    fun registerBackPress(owner: LifecycleOwner, backPressObserver: BackPressObserver) {
+        mBackPressRegistry.registerBackPress(owner, backPressObserver)
+    }
+
+    @MainThread
+    override fun onBackPressed() {
+        if (mBackPressRegistry.dispatchBackPress()) return
+        super.onBackPressed()
+    }
 }
 
 
